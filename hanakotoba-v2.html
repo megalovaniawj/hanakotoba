@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>花ことば — 誕生花・花言葉辞典</title>
+<meta property="og:title" content="花ことば — 誕生花・花言葉辞典">
+<meta property="og:description" content="生まれた日の花、贈りたい花の言葉を調べる">
+<meta name="theme-color" content="#1C1C1A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="花ことば">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+:root {
+  --sumi: #1C1C1A;
+  --washi: #F5F0E8;
+  --koke: #4D6B4F;
+  --kusa: #B8986A;
+  --pink: #D4858A;
+  --shiro: #FAFAF7;
+  --light-koke: #E8EEE8;
+  --border: #DDD8CE;
+  --gray: #888880;
+  --card-shadow: 0 2px 20px rgba(28,28,26,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--washi);
+  color: var(--sumi);
+  font-family: 'Noto Sans JP', sans-serif;
+  min-height: 100vh;
+  font-weight: 300;
+}
+
+/* ======= ヘッダー ======= */
+header {
+  background: var(--sumi);
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.logo-wrap { display: flex; align-items: baseline; gap: 12px; }
+.logo-ja {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: 20px;
+  color: var(--shiro);
+  letter-spacing: 0.2em;
+}
+.logo-en {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  color: var(--kusa);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.header-right { display: flex; gap: 8px; }
+.header-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.7);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.header-btn:hover, .header-btn.active {
+  background: var(--koke);
+  border-color: var(--koke);
+  color: white;
+}
+
+/* ======= メイン ======= */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ======= タブナビ ======= */
+.tab-nav {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+  gap: 0;
+}
+.tab-btn {
+  padding: 12px 24px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  color: var(--gray);
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+.tab-btn.active {
+  color: var(--koke);
+  border-bottom-color: var(--koke);
+  font-weight: 400;
+}
+.tab-btn:hover { color: var(--sumi); }
+
+/* ======= 日付ピッカー ======= */
+.date-bar {
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.date-bar-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.date-selects { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.date-select {
+  appearance: none;
+  background: var(--light-koke);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 32px 9px 14px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  color: var(--sumi);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234D6B4F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: border-color 0.2s;
+}
+.date-select:focus { outline: none; border-color: var(--koke); }
+.date-sep { color: var(--kusa); font-family: 'Noto Serif JP', serif; font-size: 16px; }
+.today-btn {
+  margin-left: auto;
+  background: var(--koke);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 12px;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+}
+.today-btn:hover { opacity: 0.85; }
+
+/* ======= 花カード（標本ラベル風） ======= */
+.flower-card {
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.flower-card.visible { opacity: 1; transform: translateY(0); }
+
+.card-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  min-height: 440px;
+}
+
+/* 画像エリア */
+.card-image {
+  position: relative;
+  overflow: hidden;
+  background: var(--light-koke);
+}
+.card-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.5s ease;
+}
+.img-loading {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(145deg, #e8ede8, #dde5dd);
+  gap: 12px;
+}
+.img-loading .flower-big { font-size: 72px; animation: breathe 2s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+.img-loading-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--koke);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+/* 標本ラベル風オーバーレイ */
+.specimen-badge {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(28,28,26,0.7));
+  padding: 32px 20px 16px;
+}
+.specimen-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.15em;
+}
+.photo-credit {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: rgba(28,28,26,0.5);
+  color: rgba(255,255,255,0.6);
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* 情報エリア */
+.card-info {
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+  position: relative;
+}
+.spec-no {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  color: var(--gray);
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+}
+.flower-name-en {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 11px;
+  color: var(--koke);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.flower-name-ja {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: 36px;
+  color: var(--sumi);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.flower-name-scientific {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  color: var(--gray);
+  font-style: italic;
+  margin-bottom: 24px;
+  letter-spacing: 0.03em;
+}
+.rule {
+  width: 100%; height: 1px;
+  background: var(--border);
+  margin-bottom: 20px;
+}
+.section-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  color: var(--kusa);
+  letter-spacing: 0.15em;
+  margin-bottom: 10px;
+}
+.kotoba-list { list-style: none; margin-bottom: 20px; }
+.kotoba-list li {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300;
+  font-size: 17px;
+  color: var(--sumi);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.5;
+}
+.kotoba-list li::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--pink);
+  flex-shrink: 0;
+}
+.flower-desc {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+/* タグ行 */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.tag {
+  background: var(--light-koke);
+  color: var(--koke);
+  border: 1px solid #c8d4c8;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.03em;
+}
+.tag.gift-best {
+  background: #fffbea;
+  color: #8a6a00;
+  border-color: #e8c840;
+  font-weight: 500;
+}
+.tag.gift-ok {
+  background: #f0f8f0;
+  color: var(--koke);
+  border-color: #b8d4b8;
+}
+.tag.gift-caution {
+  background: #fff8ec;
+  color: #a06010;
+  border-color: #f0c870;
+}
+.tag.gift-ng {
+  background: #fef3f3;
+  color: #c0565b;
+  border-color: #f0c0c0;
+}
+
+/* ギフトボタン */
+.gift-btn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--sumi);
+  color: var(--shiro);
+  border: none;
+  border-radius: 6px;
+  padding: 13px 20px;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+.gift-btn:hover { background: var(--koke); }
+.spot-link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: none;
+  color: var(--koke);
+  border: 1px solid var(--koke);
+  border-radius: 6px;
+  padding: 11px 20px;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  width: 100%;
+}
+.spot-link-btn:hover { background: var(--light-koke); }
+
+/* 追加情報パネル（誕生石・誕生色） */
+.extra-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+.extra-card {
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+}
+.extra-card-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  color: var(--gray);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.extra-card-value {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--sumi);
+}
+.extra-card-sub {
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 3px;
+}
+
+/* ======= 検索エリア ======= */
+.search-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+.search-input {
+  width: 100%;
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px 16px 48px;
+  font-size: 15px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  color: var(--sumi);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--koke);
+  box-shadow: 0 0 0 3px rgba(77,107,79,0.1);
+}
+.search-icon {
+  position: absolute;
+  left: 16px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray);
+  font-size: 18px;
+  pointer-events: none;
+}
+.search-hint {
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+.search-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.search-tag {
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--sumi);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.search-tag:hover { background: var(--light-koke); border-color: var(--koke); color: var(--koke); }
+
+/* ローディング */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  gap: 16px;
+}
+.loading-dots { display: flex; gap: 6px; }
+.loading-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--koke);
+  animation: dot-bounce 1.4s infinite ease-in-out;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot-bounce {
+  0%,80%,100% { transform: translateY(0); opacity: 0.3; }
+  40% { transform: translateY(-8px); opacity: 1; }
+}
+.loading-text {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  color: var(--gray);
+  letter-spacing: 0.05em;
+}
+
+/* エラー */
+.error-state {
+  background: #fef3f3;
+  border: 1px solid #f0c0c0;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  color: #c0565b;
+  font-size: 13px;
+}
+
+/* 花びら */
+.petals {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  overflow: hidden;
+}
+.petal {
+  position: absolute;
+  top: -20px;
+  animation: petal-fall linear forwards;
+  opacity: 0.7;
+}
+@keyframes petal-fall {
+  0% { transform: translateX(0) rotate(0deg) translateY(0); opacity: 0.7; }
+  100% { transform: translateX(var(--drift)) rotate(540deg) translateY(110vh); opacity: 0; }
+}
+
+/* 花スポットタブ */
+.spot-header {
+  margin-bottom: 24px;
+}
+.spot-title {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200;
+  font-size: 24px;
+  color: var(--sumi);
+  margin-bottom: 6px;
+}
+.spot-subtitle { font-size: 12px; color: var(--gray); }
+.season-chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+.season-chip {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--shiro);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--sumi);
+}
+.season-chip.active, .season-chip:hover {
+  background: var(--koke);
+  border-color: var(--koke);
+  color: white;
+}
+.pref-select {
+  appearance: none;
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 36px 10px 14px;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--sumi);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234D6B4F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  margin-bottom: 20px;
+  width: 200px;
+}
+.spot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.spot-card {
+  background: var(--shiro);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: box-shadow 0.2s;
+}
+.spot-card:hover { box-shadow: var(--card-shadow); }
+.spot-flower { font-size: 28px; margin-bottom: 8px; }
+.spot-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 4px;
+}
+.spot-pref { font-size: 11px; color: var(--gray); margin-bottom: 8px; font-family: 'Noto Sans JP', sans-serif; }
+.spot-season {
+  display: inline-block;
+  background: var(--light-koke);
+  color: var(--koke);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.03em;
+  margin-bottom: 8px;
+}
+.spot-desc { font-size: 12px; color: var(--gray); line-height: 1.7; }
+
+/* シェアボタン群 */
+.share-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.share-btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.share-btn:hover { opacity: 0.85; }
+.share-btn.twitter { background: #000; color: #fff; }
+.share-btn.line    { background: #06C755; color: #fff; }
+.share-btn.img-dl  { background: var(--kusa); color: #fff; }
+
+/* 母の日・父の日ラベル */
+.tag.mothers-day {
+  background: #fff0f5;
+  color: #c0406a;
+  border-color: #f0a0c0;
+  font-weight: 500;
+}
+.tag.fathers-day {
+  background: #fffbe0;
+  color: #8a6800;
+  border-color: #e8c840;
+  font-weight: 500;
+}
+
+/* 季節バナー */
+.season-banner {
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.6;
+}
+.season-banner.mothers {
+  background: linear-gradient(135deg, #fff0f5, #ffe4ef);
+  border: 1px solid #f0a0c0;
+  color: #a03060;
+}
+.season-banner.fathers {
+  background: linear-gradient(135deg, #fffbe0, #fff3c0);
+  border: 1px solid #e8c840;
+  color: #7a5800;
+}
+.season-banner-icon { font-size: 28px; flex-shrink: 0; }
+.season-banner strong { display: block; font-size: 14px; margin-bottom: 2px; }
+@media (max-width: 700px) {
+  .card-layout { grid-template-columns: 1fr; }
+  .card-image { min-height: 260px; }
+  .card-info { padding: 24px 20px; border-left: none; border-top: 1px solid var(--border); }
+  .flower-name-ja { font-size: 28px; }
+  .extra-panel { grid-template-columns: 1fr 1fr; }
+  header { padding: 0 16px; }
+  .logo-en { display: none; }
+  .tab-btn { padding: 10px 14px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals"></div>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-ja">花ことば</div>
+    <div class="logo-en">Hanakotoba — Language of Flowers</div>
+  </div>
+  <div class="header-right">
+    <button class="header-btn active" onclick="switchTab('birth', this)">誕生花</button>
+    <button class="header-btn" onclick="switchTab('search', this)">花を調べる</button>
+    <button class="header-btn" onclick="switchTab('spot', this)">花スポット</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ===== 誕生花タブ ===== -->
+  <div id="tab-birth">
+    <div id="seasonal-banner"></div>
+    <div class="date-bar">
+      <div class="date-bar-label">誕生日</div>
+      <div class="date-selects">
+        <select class="date-select" id="sel-month"></select>
+        <span class="date-sep">月</span>
+        <select class="date-select" id="sel-day"></select>
+        <span class="date-sep">日</span>
+      </div>
+      <button class="today-btn" onclick="goToday()">今日の花</button>
+    </div>
+
+    <div id="birth-result"></div>
+
+    <div class="extra-panel" id="extra-panel" style="display:none">
+      <div class="extra-card">
+        <div class="extra-card-label">誕生石</div>
+        <div class="extra-card-value" id="birthstone-name">—</div>
+        <div class="extra-card-sub" id="birthstone-meaning"></div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-card-label">誕生色</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+          <div id="birth-color-swatch" style="width:28px;height:28px;border-radius:4px;border:1px solid var(--border)"></div>
+          <div>
+            <div class="extra-card-value" id="birth-color-name">—</div>
+            <div class="extra-card-sub" id="birth-color-meaning"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 検索タブ ===== -->
+  <div id="tab-search" style="display:none">
+    <div id="seasonal-banner-search"></div>
+    <div class="search-wrap">
+      <span class="search-icon">🌸</span>
+      <input class="search-input" id="search-input" type="text"
+        placeholder="花の名前を入力（例：バラ、向日葵、ラベンダー）"
+        onkeydown="if(event.key==='Enter')doSearch()">
+    </div>
+    <div class="search-hint">ひらがな・カタカナ・漢字で検索できます</div>
+    <div class="search-tags" id="suggest-tags"></div>
+    <div id="search-result"></div>
+  </div>
+
+  <!-- ===== 花スポットタブ ===== -->
+  <div id="tab-spot" style="display:none">
+    <div class="spot-header">
+      <div class="spot-title">今、見頃の花スポット</div>
+      <div class="spot-subtitle" id="spot-subtitle">月と都道府県から絞り込めます</div>
+    </div>
+    <div class="season-chips" id="season-chips"></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap">
+      <select class="pref-select" style="margin-bottom:0" id="pref-select" onchange="renderSpots()">
+        <option value="">全国</option>
+      </select>
+      <div style="position:relative;flex:1;min-width:180px">
+        <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none">🔍</span>
+        <input id="spot-flower-input" class="search-input" type="text"
+          style="padding-left:36px;padding-top:10px;padding-bottom:10px;font-size:13px"
+          placeholder="花の名前で絞り込む（例：桜、ラベンダー）"
+          oninput="onSpotFlowerInput(this.value)"
+          onkeydown="if(event.key==='Enter')renderSpots()">
+      </div>
+      <button id="spot-clear-btn" onclick="clearSpotFlower()"
+        style="display:none;padding:9px 14px;border:1px solid var(--border);border-radius:6px;background:var(--shiro);color:var(--gray);font-size:12px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;white-space:nowrap">
+        × クリア
+      </button>
+    </div>
+    <div class="spot-grid" id="spot-grid"></div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// 母の日・父の日 判定
+// ============================================================
+
+// 母の日おすすめ花（カーネーション系・ピンク・感謝系）
+const MOTHERS_DAY_FLOWERS = ['カーネーション','薔薇','バラ','ガーベラ','スイートピー','ラナンキュラス','ピオニー','芍薬','桃の花','白バラ'];
+// 父の日おすすめ花（向日葵・黄色系・男性的な花）
+const FATHERS_DAY_FLOWERS = ['向日葵','ひまわり','ヒマワリ','ゴールデンロッド','菊','ガーベラ','ユリ','百合','ハス','蓮'];
+
+function getNthWeekday(year, month, weekday, n) {
+  // year年month月(1始まり)のn番目のweekday(0=日,1=月...)を返す
+  const d = new Date(year, month - 1, 1);
+  let count = 0;
+  while (d.getMonth() === month - 1) {
+    if (d.getDay() === weekday) {
+      count++;
+      if (count === n) return new Date(d);
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  return null;
+}
+
+function getSeasonalEvent() {
+  const today = new Date();
+  const y = today.getFullYear();
+
+  // 母の日：5月第2日曜
+  const mothersDay = getNthWeekday(y, 5, 0, 2);
+  // 父の日：6月第3日曜
+  const fathersDay = getNthWeekday(y, 6, 0, 3);
+
+  const diffDays = (target) => Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+
+  const mdDiff = diffDays(mothersDay);
+  const fdDiff = diffDays(fathersDay);
+
+  // 2週間前〜当日
+  if (mdDiff >= 0 && mdDiff <= 14) return { type: 'mothers', daysLeft: mdDiff, date: mothersDay };
+  if (fdDiff >= 0 && fdDiff <= 14) return { type: 'fathers', daysLeft: fdDiff, date: fathersDay };
+  return null;
+}
+
+function getSeasonalTags(flowerName) {
+  const event = getSeasonalEvent();
+  if (!event) return '';
+  const tags = [];
+  if (event.type === 'mothers') {
+    const isMatch = MOTHERS_DAY_FLOWERS.some(f => flowerName.includes(f) || f.includes(flowerName));
+    if (isMatch) tags.push(`<span class="tag mothers-day">🌸 母の日おすすめ</span>`);
+  }
+  if (event.type === 'fathers') {
+    const isMatch = FATHERS_DAY_FLOWERS.some(f => flowerName.includes(f) || f.includes(flowerName));
+    if (isMatch) tags.push(`<span class="tag fathers-day">👔 父の日おすすめ</span>`);
+  }
+  return tags.join('');
+}
+
+function getSeasonalBanner() {
+  const event = getSeasonalEvent();
+  if (!event) return '';
+  const m = event.date.getMonth() + 1;
+  const d = event.date.getDate();
+  if (event.type === 'mothers') {
+    const label = event.daysLeft === 0 ? '今日が母の日です！' : `母の日まであと${event.daysLeft}日（${m}/${d}）`;
+    return `<div class="season-banner mothers">
+      <div class="season-banner-icon">🌸</div>
+      <div><strong>${label}</strong>カーネーションや薔薇など、感謝の気持ちを花で伝えませんか？</div>
+    </div>`;
+  }
+  if (event.type === 'fathers') {
+    const label = event.daysLeft === 0 ? '今日が父の日です！' : `父の日まであと${event.daysLeft}日（${m}/${d}）`;
+    return `<div class="season-banner fathers">
+      <div class="season-banner-icon">👔</div>
+      <div><strong>${label}</strong>向日葵など黄色の花が父の日の定番です。</div>
+    </div>`;
+  }
+  return '';
+}
+const OPENROUTER_KEY = '__OPENROUTER_KEY__';
+const PEXELS_KEY = '__PEXELS_KEY__';
+const MODEL = 'anthropic/claude-haiku-4-5';
+
+// ============================================================
+// 365日 誕生花静的データ（主要日付 + 月デフォルト）
+// ============================================================
+const BIRTH_FLOWERS = {
+  "1/1":  { name:"松",       en:"Japanese Pine",     emoji:"🌲", gift_level:"ok",      kotoba:["長寿","不老長寿","勇気"],           desc:"お正月を象徴する常緑樹で、一年中緑を保つ強さから長寿や不老のシンボルとされています。古くから神が宿る木として神聖視され、門松として年神様を迎える依り代にもなります。日本の文化に深く根ざした、格式ある植物です。",         scientific:"Pinus", gift_reason:"縁起は良いが花束向きではない" },
+  "1/2":  { name:"水仙",     en:"Narcissus",          emoji:"💐", gift_level:"caution", kotoba:["神秘","自己愛","もう一度愛して"],   desc:"冬の寒さの中に凛と咲く清楚な花で、「雪中花」とも呼ばれます。ギリシャ神話では水面に映る自分の姿に恋した美少年ナルキッソスが変身したとされ、「自己愛」の花言葉の由来になっています。全草に毒を持つため、取り扱いには注意が必要です。",         scientific:"Narcissus", gift_reason:"全草に毒があるため注意が必要" },
+  "1/7":  { name:"春の七草", en:"Seven Spring Herbs", emoji:"🌿", gift_level:"ok",      kotoba:["健康","長寿","無病息災"],           desc:"七草粥に使われる縁起の良い草で、新年の無病息災を願う日本の伝統文化に欠かせない存在です。セリ・ナズナ・ゴギョウ・ハコベラ・ホトケノザ・スズナ・スズシロの7種からなり、それぞれが春の訪れを告げます。正月料理で疲れた胃腸を整える効果もあります。",         scientific:"Rorippa", gift_reason:"健康祈願の贈り物に向く" },
+  "1/14": { name:"チューリップ", en:"Tulip",           emoji:"🌷", gift_level:"best",    kotoba:["博愛","思いやり","名声"],          desc:"春の花壇を彩る色鮮やかな花で、オランダの国花として世界中で親しまれています。17世紀のオランダでは球根が金と同じ価値を持つほど珍重され「チューリップ・バブル」が起きたことでも有名です。色によって花言葉が異なり、赤は「愛の告白」、黄は「友情」を意味します。",               scientific:"Tulipa", gift_reason:"明るく誰にでも喜ばれる万能な花" },
+  "1/20": { name:"蝋梅",     en:"Wintersweet",        emoji:"🌼", gift_level:"ok",      kotoba:["先導","慈愛","ゆかしさ"],           desc:"厳冬の1〜2月に黄色い花を咲かせる芳香の落葉低木で、その甘い香りは遠くまで届くことから「香りの先導者」とも称されます。名前の「蝋」は花びらが蝋細工のように半透明であることに由来します。寒さの中で一番に咲く姿が、春の訪れを告げる希望の象徴とされています。",   scientific:"Chimonanthus", gift_reason:"香りが素晴らしく冬の贈り物に良い" },
+  "2/3":  { name:"福豆（大豆）", en:"Soybean",         emoji:"🫘", gift_level:"ok",      kotoba:["魔除け","開運","勝負"],            desc:"節分に使われる縁起物で、鬼を払い福を招く日本の伝統的な豆まきに欠かせない存在です。炒った大豆を「鬼は外、福は内」と唱えながら撒く風習は平安時代から続いています。年の数だけ豆を食べると一年間健康でいられるという言い伝えも広く親しまれています。",         scientific:"Glycine max", gift_reason:"節分の縁起物として" },
+  "2/14": { name:"赤いバラ", en:"Red Rose",           emoji:"🌹", gift_level:"best",    kotoba:["愛","情熱","あなたを愛します"],     desc:"バレンタインデーの象徴として世界中で愛されており、情熱的な赤は永遠の愛のシンボルです。古代ローマでは愛と美の女神ヴィーナスに捧げられた花として崇められていました。本数によっても意味が変わり、1本は「一目惚れ」、12本は「私と付き合ってください」を表します。",             scientific:"Rosa", gift_reason:"愛の告白・バレンタインに最高の一本" },
+  "2/20": { name:"梅",       en:"Japanese Plum",      emoji:"🌸", gift_level:"best",    kotoba:["忠実","上品","気品"],               desc:"春一番に咲く花として古くから詩歌に詠まれ、厳しい寒さの中でも凛と咲く強さと気品が愛されてきました。奈良時代には桜より人気があり「花」といえば梅を指していたほどです。梅の実は梅干しや梅酒として日本人の食卓にも深く根付いており、花と実の両方が楽しめる木です。",   scientific:"Prunus mume", gift_reason:"縁起が良く目上の方への贈り物にも最適" },
+  "3/3":  { name:"桃の花",   en:"Peach Blossom",      emoji:"🌸", gift_level:"best",    kotoba:["長命","天下無敵","チャーミング"],   desc:"ひな祭りに飾られる優雅な花で、中国では古くから不老長寿や魔除けのシンボルとされてきました。桃太郎の伝説にも登場するように、日本でも邪気を払う霊力を持つ木として大切にされています。淡いピンクの花びらが春の訪れを告げる姿は、女の子の誕生や成長を祝う節句にもぴったりです。",   scientific:"Prunus persica", gift_reason:"ひな祭り・女の子の誕生日に特に喜ばれる" },
+  "3/14": { name:"白バラ",   en:"White Rose",         emoji:"🤍", gift_level:"best",    kotoba:["純潔","私はあなたにふさわしい","清純な愛"], desc:"純白の花びらが清らかな愛と誠実さを象徴する花で、ホワイトデーやウェディングの定番として世界中で愛されています。中世ヨーロッパでは「沈黙のシンボル」とされ、薔薇の下での会話は秘密として守られるという文化もありました。赤いバラが情熱を表すのに対し、白バラは精神的な愛の深さを伝えます。", scientific:"Rosa", gift_reason:"ホワイトデー・ブライダルに最適" },
+  "3/20": { name:"菜の花",   en:"Rapeseed Flower",    emoji:"🌼", gift_level:"ok",      kotoba:["快活","明るさ","財産"],             desc:"春の野原一面を鮮やかな黄色に染める花で、その明るさが元気と活力のシンボルとされています。春の訪れを最も早く知らせる花のひとつとして、古くから日本人に親しまれてきました。食用としても優れており、花・茎・葉がお浸しや和え物として食べられ、種は菜種油の原料にもなります。", scientific:"Brassica napus", gift_reason:"春らしく明るい贈り物になる" },
+  "4/1":  { name:"桜",       en:"Cherry Blossom",     emoji:"🌸", gift_level:"best",    kotoba:["精神美","優雅さ","純潔"],           desc:"日本の国花として最も愛される花で、散り際の潔さが「もののあわれ」という日本独自の美意識を体現しています。奈良時代に中国から伝わった梅に代わり、平安時代以降「花」の代名詞となりました。入学式や歓迎会の季節と重なることから、新たな出発や希望のシンボルとしても広く知られています。",       scientific:"Prunus serrulata", gift_reason:"入学・就職など新生活の贈り物に最高" },
+  "4/8":  { name:"桜（満開）",en:"Cherry Blossom",    emoji:"🌸", gift_level:"best",    kotoba:["精神美","優雅さ","淡泊"],           desc:"花まつり（釈迦の誕生日）に満開を迎えることが多い桜は、日本人が最も愛する花です。その命の短さゆえに「散る」ことの美しさが語り継がれ、武士道の精神とも結びついてきました。全国各地に名所があり、毎年春には花見文化として家族や仲間と集う大切な行事になっています。",             scientific:"Prunus serrulata", gift_reason:"入学・就職など新生活の贈り物に最高" },
+  "4/22": { name:"藤",       en:"Wisteria",           emoji:"💜", gift_level:"ok",      kotoba:["歓迎","恋に忠実","決して離れない"], desc:"垂れ下がる紫の花房が美しい初夏の日本を代表する花で、万葉集にも多く詠まれた歴史ある植物です。木に巻きつきながら成長する姿から「恋に忠実」「決して離れない」という花言葉が生まれました。日光東照宮や亀戸天神などの藤棚は毎年多くの観光客を集める名所となっています。",       scientific:"Wisteria", gift_reason:"優雅な見た目で喜ばれる" },
+  "5/5":  { name:"菖蒲",     en:"Iris",               emoji:"💜", gift_level:"ok",      kotoba:["よい知らせ","武勇","優雅"],         desc:"端午の節句に欠かせない凛々しい花で、その葉の形が剣に似ていることから武道や勝負との縁が深い植物です。菖蒲湯に入る風習は邪気を払い無病息災を願うもので、子どもたちの健やかな成長を祈る行事として今も続いています。「しょうぶ」の読みが「尚武」（武を重んじる）に通じることも男の子の節句にふさわしい由来です。",       scientific:"Iris", gift_reason:"端午の節句・男の子への贈り物に向く" },
+  "5/15": { name:"鈴蘭",     en:"Lily of the Valley", emoji:"🌿", gift_level:"caution", kotoba:["純粋な愛","謙虚さ","幸福の訪れ"],  desc:"フランスでは5月1日に大切な人へ贈る「幸福の花」として有名で、受け取った人に幸せが訪れると言い伝えられています。小さな白いベル型の花が連なる可憐な姿と甘い香りが世界中で愛されています。ただし全草に強い毒性があるため、ペットや小さな子どもがいる家庭では取り扱いに十分注意が必要です。",       scientific:"Convallaria majalis", gift_reason:"全草に毒あり。ペットや子どもがいる家庭は注意" },
+  "6/1":  { name:"紫陽花",   en:"Hydrangea",          emoji:"💙", gift_level:"caution", kotoba:["移り気","辛抱強さ","家族の絆"],     desc:"梅雨の季節を彩る花で、土壌のpHによって青・紫・ピンクと花の色が変わる神秘的な特性を持ちます。この色の変化が「移り気」という花言葉の由来になっていますが、「辛抱強さ」「家族の絆」など前向きな意味もあります。恋人へ贈る際は「移り気」の意味合いが気になる場合もあるため、場面を選ぶとよいでしょう。",     scientific:"Hydrangea", gift_reason:"「移り気」の花言葉があるため恋人への贈り物は注意" },
+  "6/21": { name:"薔薇",     en:"Rose",               emoji:"🌹", gift_level:"best",    kotoba:["愛","美","情熱"],                   desc:"「花の女王」と称される世界で最も有名な花で、約5000年以上前から人類に愛され詩や芸術の題材とされてきました。色によって花言葉が大きく異なり、赤は愛・情熱、白は純潔、黄は友情、ピンクは感謝を意味します。本数にも意味があり、贈る相手や目的に合わせて色と本数を選ぶのが粋な贈り方です。",           scientific:"Rosa", gift_reason:"色を選べばあらゆるシーンに最適" },
+  "7/7":  { name:"朝顔",     en:"Morning Glory",      emoji:"💙", gift_level:"ok",      kotoba:["愛情","固い絆","はかない恋"],       desc:"七夕の季節に咲く夏の代表花で、毎朝新しく開いて午後にはしぼむ一日花の儚さが「はかない恋」の花言葉を生みました。奈良時代に中国から薬草として伝わり、平安時代には観賞用として貴族に愛されました。江戸時代には品種改良が盛んになり、朝顔市や朝顔展が庶民の夏の楽しみとして定着しています。",       scientific:"Ipomoea nil", gift_reason:"夏の贈り物・七夕に向く" },
+  "7/20": { name:"向日葵",   en:"Sunflower",          emoji:"🌻", gift_level:"best",    kotoba:["憧れ","あなただけを見つめる","愛慕"], desc:"太陽に向かって咲く情熱的な花で、その力強さと明るさから夏のシンボルとして世界中で愛されています。「あなただけを見つめる」という花言葉は、花が太陽の方向を向く「向日性」から生まれましたが、実際は成長段階のみで開花後は東を向いたまま固定されます。ゴッホが愛した花としても有名で、数多くの芸術作品に描かれています。",     scientific:"Helianthus annuus", gift_reason:"夏の誕生日・応援の気持ちを伝えるのに最高" },
+  "8/1":  { name:"向日葵",   en:"Sunflower",          emoji:"🌻", gift_level:"best",    kotoba:["憧れ","あなただけを見つめる","愛慕"], desc:"夏の王様として親しまれる向日葵は、北アメリカ原産でインディアンが3000年以上前から食用・薬用として利用していました。日本には江戸時代に伝わり、今では北海道のひまわり畑など全国各地に名所があります。種から採れる油は食用・化粧品用として広く使われ、花だけでなく実用性も高い植物です。",             scientific:"Helianthus annuus", gift_reason:"夏の誕生日・応援の気持ちを伝えるのに最高" },
+  "8/15": { name:"桔梗",     en:"Bellflower",         emoji:"💜", gift_level:"ok",      kotoba:["永遠の愛","変わらぬ愛","誠実"],     desc:"秋の七草のひとつで、涼しげな星形の紫の花が凛とした美しさを持つ日本原産の多年草です。家紋にも多く使われており、土岐氏・明智光秀・坂本龍馬ゆかりの家紋としても知られています。「永遠の愛」「誠実」という花言葉を持ち、結婚祝いや誠意を伝えたい場面での贈り物に向いています。",         scientific:"Platycodon", gift_reason:"誠実な気持ちを伝える贈り物に向く" },
+  "9/9":  { name:"菊",       en:"Chrysanthemum",      emoji:"🌸", gift_level:"caution", kotoba:["高貴","高尚","長寿"],               desc:"日本の皇室の紋章にも使われる格調高い花で、中国から奈良時代に伝わり長寿や不老の象徴として重陽の節句（9月9日）に菊酒を飲む風習があります。世界に約2万種以上の品種があり、日本では江戸時代から品種改良が盛んに行われてきました。供花のイメージが強い場合があるため、贈る相手や場面には配慮が必要です。",           scientific:"Chrysanthemum", gift_reason:"仏花のイメージがあるため贈る場面を選ぶ" },
+  "9/22": { name:"彼岸花",   en:"Red Spider Lily",    emoji:"❤️", gift_level:"ng",      kotoba:["情熱","独立","再会"],               desc:"秋のお彼岸に一斉に咲く神秘的な花で、葉と花が同時に出ないことから「相思花」とも呼ばれます。全草にアルコイドの毒を持ち、田畑の畔に植えてモグラや害虫を寄せ付けない効果があります。死や別れを連想させる花言葉と毒性から、贈り物には使わないのが一般的なマナーです。",       scientific:"Lycoris radiata", gift_reason:"死や別れを連想させるため贈り物には不向き" },
+  "10/1": { name:"コスモス", en:"Cosmos",             emoji:"🌸", gift_level:"ok",      kotoba:["乙女の真心","調和","謙虚さ"],       desc:"秋空に揺れる繊細で優雅な花で、「コスモス」はギリシャ語で「秩序」「調和」を意味します。メキシコ原産で明治時代に日本に伝わり、今では秋を代表する花として全国各地に名所があります。花びらの数が8枚と均整が取れており、「調和」という花言葉はこの整然とした美しさからも来ています。", scientific:"Cosmos", gift_reason:"秋の誕生日に爽やかな贈り物になる" },
+  "10/31":{ name:"南瓜の花", en:"Pumpkin Flower",     emoji:"🎃", gift_level:"ok",      kotoba:["広大さ","温もり","収穫"],           desc:"ハロウィンの季節に咲く黄色い花で、実りの秋を象徴する温かみのある存在です。南瓜は南アメリカ原産で、北アメリカの先住民が5000年以上前から食用にしていたとされています。ハロウィンのジャック・オー・ランタンに使われることで有名ですが、花も食用になり天ぷらや炒め物として楽しめます。",           scientific:"Cucurbita", gift_reason:"ハロウィンシーズンの贈り物に" },
+  "11/1": { name:"山茶花",   en:"Sasanqua",           emoji:"🌺", gift_level:"ok",      kotoba:["困難に打ち勝つ","ひたむきさ","謙虚"], desc:"晩秋から冬にかけて咲く日本原産の花で、寒さの中でも明るく咲く強さと健気さが「困難に打ち勝つ」という花言葉に表れています。椿によく似ていますが、山茶花は花びらが一枚ずつ散るのに対し椿は花ごと落ちる点で見分けられます。俳句の季語としても使われ、冬の庭を彩る代表的な和の花です。", scientific:"Camellia sasanqua", gift_reason:"冬の誕生日・応援の気持ちを伝えるのに向く" },
+  "11/23":{ name:"菊（白）", en:"White Chrysanthemum",emoji:"🌼", gift_level:"caution", kotoba:["真実","誠実","高潔"],               desc:"勤労感謝の日に咲く白菊は、純粋な心と高潔さを表す日本の伝統的な花です。神事や皇室ゆかりの行事では白菊が欠かせない存在として古くから使われてきました。白い菊は供花として使われることが多いため、贈り物として送る際には相手の受け取り方に配慮するとよいでしょう。",         scientific:"Chrysanthemum", gift_reason:"仏花のイメージが強いため贈る場面を選ぶ" },
+  "12/1": { name:"椿",       en:"Camellia",           emoji:"🌺", gift_level:"caution", kotoba:["控えめな素晴らしさ","気どらない優美さ","完璧な魅力"], desc:"冬から春にかけて咲く日本原産の花で、茶道や華道と深い縁を持つ格調高い植物です。江戸時代には武家社会で花ごと落ちる様子が「首が落ちる」を連想させるとして忌避される一方、庶民の間では品種改良が盛んに行われ多くの名品が生まれました。落花の美しさも含めて楽しむのが椿の真骨頂です。", scientific:"Camellia japonica", gift_reason:"花ごと落ちる様子が首落ちを連想させる場合あり" },
+  "12/24":{ name:"シクラメン",en:"Cyclamen",           emoji:"🌸", gift_level:"ng",      kotoba:["内気","はにかみ","遠慮がちな愛"],   desc:"クリスマスイブを彩る冬の花で、地中海沿岸原産の球根植物です。うつむき加減に咲く繊細な花びらが内気で慎み深い美しさを表しています。「死」「去る」に通じる語呂合わせの懸念から贈り物を避ける文化がある一方、近年はその意識も薄れつつあり、冬の定番鉢植えとして広く親しまれています。", scientific:"Cyclamen", gift_reason:"「死」「去る」に通じる語呂が避けられることがある" },
+  "12/25":{ name:"ポインセチア",en:"Poinsettia",       emoji:"🌟", gift_level:"best",    kotoba:["祝福する","聖なる願い","純潔"],     desc:"クリスマスの花として世界中で愛されるメキシコ原産の花木で、赤い部分は実は花びらではなく「苞（ほう）」と呼ばれる葉が変化したものです。アステカ文明では太陽の象徴として崇められており、16世紀のメキシコで活躍したアメリカ公使ポインセット氏が本国に持ち帰りその名がつきました。クリスマスシーズンの贈り物として最高の一鉢です。",         scientific:"Euphorbia pulcherrima", gift_reason:"クリスマスギフトに最高の定番花" },
+};
+
+const MONTH_DEFAULTS = {
+  1:  { name:"水仙",     en:"Narcissus",        emoji:"💐", gift_level:"caution", kotoba:["神秘","自己愛","もう一度愛してほしい"], desc:"冬の寒さの中に凛と咲く清楚な花で、「雪中花」とも呼ばれ厳冬の庭を彩ります。ギリシャ神話の美少年ナルキッソスが変身したとされ「自己愛」の花言葉の由来にもなっています。全草に毒性があるため取り扱いには注意が必要です。",     scientific:"Narcissus", gift_reason:"全草に毒があるため注意" },
+  2:  { name:"梅",       en:"Japanese Plum",    emoji:"🌸", gift_level:"best",    kotoba:["忠実","上品","気品"],               desc:"春一番に咲く花として万葉集にも多く詠まれ、その凛とした気品が古くから愛されてきました。奈良時代には「花」の代名詞は桜ではなく梅であったほど日本文化に深く根ざしています。実は梅干しや梅酒として食卓にも欠かせない存在です。", scientific:"Prunus mume", gift_reason:"縁起が良く目上の方にも喜ばれる" },
+  3:  { name:"菜の花",   en:"Rapeseed",         emoji:"🌼", gift_level:"ok",      kotoba:["快活","明るさ","財産"],             desc:"春風に揺れる黄色い花々が野原一面を染め、春の訪れを最も早く知らせる花のひとつです。花・茎・葉が食用になり、種は菜種油の原料にもなる実用的な植物でもあります。明るい黄色が「快活」「明るさ」の花言葉をそのまま体現しています。", scientific:"Brassica napus", gift_reason:"春らしく明るい贈り物になる" },
+  4:  { name:"桜",       en:"Cherry Blossom",   emoji:"🌸", gift_level:"best",    kotoba:["精神美","優雅さ","純潔"],           desc:"日本人が最も愛する花で、散り際の潔さが「もののあわれ」という日本独自の美意識を体現しています。平安時代以降「花」の代名詞となり、入学式や新生活のシンボルとして現代でも深く愛されています。全国各地に名所があり、毎年春に花見文化として人々が集います。", scientific:"Prunus serrulata", gift_reason:"新生活・お祝いの贈り物に最高" },
+  5:  { name:"藤",       en:"Wisteria",         emoji:"💜", gift_level:"ok",      kotoba:["歓迎","恋に忠実","決して離れない"], desc:"垂れ下がる紫の花房が美しい初夏の日本を代表する花で、万葉集にも多く詠まれた歴史ある植物です。木に巻きつきながら成長する姿が「恋に忠実」「決して離れない」という花言葉の由来になっています。日光東照宮や亀戸天神の藤棚は全国から観光客が集まる名所です。",     scientific:"Wisteria", gift_reason:"優雅な見た目で喜ばれる" },
+  6:  { name:"紫陽花",   en:"Hydrangea",        emoji:"💙", gift_level:"caution", kotoba:["移り気","辛抱強さ","家族の絆"],     desc:"土壌のpHによって青・紫・ピンクと花の色が変わる神秘的な特性を持ち、この色の変化が「移り気」という花言葉の由来となっています。雨に濡れるほど美しいと言われ、梅雨の季節を代表する日本らしい花です。恋人への贈り物には花言葉に配慮すると良いでしょう。",           scientific:"Hydrangea", gift_reason:"「移り気」の花言葉があるため恋人への贈り物は注意" },
+  7:  { name:"朝顔",     en:"Morning Glory",    emoji:"💙", gift_level:"ok",      kotoba:["愛情","固い絆","はかない恋"],       desc:"毎朝新しく開いて午後にはしぼむ一日花の儚さが「はかない恋」の花言葉を生みました。奈良時代に中国から薬草として伝わり、江戸時代には品種改良が盛んになり朝顔市として庶民の夏の楽しみになりました。七夕の季節と重なる夏の代表的な花です。", scientific:"Ipomoea nil", gift_reason:"夏・七夕の贈り物に向く" },
+  8:  { name:"向日葵",   en:"Sunflower",        emoji:"🌻", gift_level:"best",    kotoba:["憧れ","あなただけを見つめる","愛慕"], desc:"太陽に向かって咲く力強い花で、北アメリカ原産のインディアンが3000年以上前から食用に利用していました。「あなただけを見つめる」という花言葉は花の向日性から生まれ、ゴッホが愛した花としても芸術の世界で親しまれています。夏の誕生日や応援の気持ちを伝えるのに最高の花です。",           scientific:"Helianthus annuus", gift_reason:"夏の誕生日・応援に最高" },
+  9:  { name:"彼岸花",   en:"Red Spider Lily",  emoji:"❤️", gift_level:"ng",      kotoba:["情熱","独立","再会"],               desc:"秋のお彼岸に一斉に咲く神秘的な花で、葉と花が同時に出ないことから「相思花」とも呼ばれます。全草に毒性があり、田畑の畔に植えてモグラや害虫を寄せ付けない効果があります。死や別れを連想させる花言葉から贈り物には使わないのが一般的なマナーです。",       scientific:"Lycoris radiata", gift_reason:"死や別れを連想させるため贈り物には不向き" },
+  10: { name:"コスモス", en:"Cosmos",           emoji:"🌸", gift_level:"ok",      kotoba:["乙女の真心","調和","謙虚さ"],       desc:"秋空に揺れる繊細な花で「コスモス」はギリシャ語で「秩序」「調和」を意味します。メキシコ原産で明治時代に日本に伝わり、今では全国各地に名所があります。花びらが8枚と均整が取れた姿が「調和」の花言葉をそのまま体現しています。",               scientific:"Cosmos", gift_reason:"秋の誕生日に爽やかな贈り物になる" },
+  11: { name:"山茶花",   en:"Sasanqua",         emoji:"🌺", gift_level:"ok",      kotoba:["困難に打ち勝つ","ひたむきさ","謙虚"], desc:"晩秋から冬にかけて咲く日本原産の花で、寒さの中でも明るく咲く強さが「困難に打ち勝つ」という花言葉に表れています。椿によく似ていますが花びらが一枚ずつ散る点で見分けられます。俳句の季語としても使われる日本の冬を代表する花です。",         scientific:"Camellia sasanqua", gift_reason:"冬の応援・励ましの贈り物に向く" },
+  12: { name:"ポインセチア",en:"Poinsettia",     emoji:"🌟", gift_level:"best",    kotoba:["祝福する","聖なる願い","純潔"],     desc:"クリスマスの花として世界中で愛されるメキシコ原産の植物で、赤い部分は花びらではなく「苞（ほう）」と呼ばれる葉が変化したものです。アステカ文明では太陽の象徴として崇められており、16世紀にアメリカ公使ポインセット氏が本国に持ち帰り名前がつきました。冬のギフトとして最高の定番です。",             scientific:"Euphorbia pulcherrima", gift_reason:"クリスマスギフトに最高の定番花" },
+};
+
+// 誕生石データ
+const BIRTHSTONES = {
+  1:  { name:"ガーネット",   meaning:"友愛・誠実" },
+  2:  { name:"アメジスト",   meaning:"誠実・平和" },
+  3:  { name:"アクアマリン", meaning:"幸福・勇敢" },
+  4:  { name:"ダイヤモンド", meaning:"永遠の愛・純潔" },
+  5:  { name:"エメラルド",   meaning:"幸福・希望" },
+  6:  { name:"真珠",         meaning:"健康・純潔" },
+  7:  { name:"ルビー",       meaning:"情熱・愛" },
+  8:  { name:"ペリドット",   meaning:"夫婦の幸福" },
+  9:  { name:"サファイア",   meaning:"慈愛・誠実" },
+  10: { name:"トパーズ",     meaning:"友情・希望" },
+  11: { name:"シトリン",     meaning:"繁栄・喜び" },
+  12: { name:"タンザナイト", meaning:"幸運・知恵" },
+};
+
+// 誕生色データ
+const BIRTH_COLORS = {
+  1:  { name:"ガーネットレッド",  hex:"#6B2D2D", meaning:"情熱と意志" },
+  2:  { name:"アメジストパープル",hex:"#7B5EA7", meaning:"高貴と神秘" },
+  3:  { name:"アクアブルー",      hex:"#7BC4C4", meaning:"清らかな希望" },
+  4:  { name:"クリアホワイト",    hex:"#E8E8E8", meaning:"純潔と輝き" },
+  5:  { name:"エメラルドグリーン",hex:"#3B7A57", meaning:"生命と成長" },
+  6:  { name:"パールホワイト",    hex:"#F0EAD6", meaning:"純粋と優雅" },
+  7:  { name:"ルビーレッド",      hex:"#9B1B30", meaning:"愛と勇気" },
+  8:  { name:"ペリドットグリーン",hex:"#8DB600", meaning:"幸福と調和" },
+  9:  { name:"サファイアブルー",  hex:"#0F52BA", meaning:"誠実と知性" },
+  10: { name:"トパーズイエロー",  hex:"#FFC87C", meaning:"友情と明るさ" },
+  11: { name:"シトリンオレンジ",  hex:"#E68A00", meaning:"活力と喜び" },
+  12: { name:"タンザナイトブルー",hex:"#4169A0", meaning:"神秘と幸運" },
+};
+
+// 花スポットデータ（monthsで見頃月を管理）
+const FLOWER_SPOTS = [
+  { name:"弘前公園",            pref:"青森県",   flower:"桜",       emoji:"🌸", months:[4],    desc:"日本三大桜の名所。約2600本のソメイヨシノが城跡を彩ります。" },
+  { name:"角館武家屋敷",        pref:"秋田県",   flower:"桜",       emoji:"🌸", months:[4,5],  desc:"枝垂れ桜と武家屋敷が織りなす風情ある景観。みちのくの小京都。" },
+  { name:"高遠城址公園",        pref:"長野県",   flower:"桜",       emoji:"🌸", months:[4],    desc:"「天下第一の桜」と称される約1500本のコヒガンザクラ。" },
+  { name:"吉野山",              pref:"奈良県",   flower:"桜",       emoji:"🌸", months:[4],    desc:"「一目千本」と称される約3万本の桜が山全体を染めます。" },
+  { name:"大阪城公園",          pref:"大阪府",   flower:"桜",       emoji:"🌸", months:[3,4],  desc:"天守閣を背景に約3000本の桜が咲く都心のお花見スポット。" },
+  { name:"円山公園",            pref:"京都府",   flower:"桜",       emoji:"🌸", months:[4],    desc:"京都を代表するお花見の名所。枝垂れ桜が夜桜として人気。" },
+  { name:"上野恩賜公園",        pref:"東京都",   flower:"桜",       emoji:"🌸", months:[3,4],  desc:"約1200本のソメイヨシノが咲く都内最大のお花見スポット。" },
+  { name:"秩父羊山公園",        pref:"埼玉県",   flower:"芝桜",     emoji:"🌸", months:[4,5],  desc:"約17600平方メートルに広がる芝桜の丘。武甲山を背景に美しい。" },
+  { name:"富士芝桜まつり",      pref:"山梨県",   flower:"芝桜",     emoji:"🌸", months:[4,5],  desc:"富士山を背景に咲き誇る約80万株の芝桜。" },
+  { name:"国営ひたち海浜公園",  pref:"茨城県",   flower:"ネモフィラ",emoji:"💙", months:[4,5], desc:"丘一面に広がる青いネモフィラの絶景。約450万本の花の海。" },
+  { name:"あしかがフラワーパーク",pref:"栃木県", flower:"藤",       emoji:"💜", months:[4,5],  desc:"世界三大夜景にも選ばれた幻想的な藤のライトアップ。" },
+  { name:"砺波チューリップ公園", pref:"富山県",  flower:"チューリップ",emoji:"🌷", months:[4,5],desc:"300万本のチューリップが咲き誇る「チューリップの里」。" },
+  { name:"世羅高原農場",        pref:"広島県",   flower:"チューリップ",emoji:"🌷", months:[4],  desc:"高原に広がる色とりどりのチューリップ畑。" },
+  { name:"入笠山",              pref:"長野県",   flower:"スズラン",  emoji:"🌿", months:[5,6],  desc:"100万本以上のスズランが咲く日本最大規模のスズラン群生地。" },
+  { name:"六甲高山植物園",      pref:"兵庫県",   flower:"スズラン",  emoji:"🌿", months:[5],   desc:"標高865mの高地に咲く清楚なスズランの群生が楽しめます。" },
+  { name:"国営越後丘陵公園",    pref:"新潟県",   flower:"紫陽花",   emoji:"💙", months:[6,7],  desc:"約2万株の紫陽花が咲く丘陵の公園。" },
+  { name:"明月院",              pref:"神奈川県", flower:"紫陽花",   emoji:"💙", months:[6],    desc:"「紫陽花寺」として名高い北鎌倉の名所。参道一面が青一色に。" },
+  { name:"矢田寺",              pref:"奈良県",   flower:"紫陽花",   emoji:"💙", months:[6],    desc:"1万株を超える紫陽花が咲く「あじさい寺」。" },
+  { name:"北海道美瑛・富良野",  pref:"北海道",   flower:"ラベンダー",emoji:"💜", months:[7],   desc:"青紫のラベンダー畑が丘陵を彩る北海道を代表する風景。" },
+  { name:"国営みちのく杜の湖畔公園",pref:"宮城県",flower:"ラベンダー",emoji:"💜", months:[7],  desc:"東北最大のラベンダー畑。約1万株のラベンダーが咲き誇ります。" },
+  { name:"ひまわりの里（北竜町）",pref:"北海道", flower:"向日葵",   emoji:"🌻", months:[7,8],  desc:"約150万本のひまわりが23ヘクタールの大地を埋め尽くします。" },
+  { name:"館林市つつじが岡公園", pref:"群馬県",  flower:"向日葵",   emoji:"🌻", months:[7,8],  desc:"関東屈指のひまわり畑。約100万本のひまわりが圧巻。" },
+  { name:"昭和記念公園",        pref:"東京都",   flower:"コスモス",  emoji:"🌸", months:[10],   desc:"約200万本のコスモスが一面に咲き誇る広大な公園。" },
+  { name:"国営武蔵丘陵森林公園", pref:"埼玉県",  flower:"コスモス",  emoji:"🌸", months:[10],   desc:"広大な森林公園に咲き誇るコスモスが秋色に染めます。" },
+  { name:"白川郷",              pref:"岐阜県",   flower:"彼岸花",   emoji:"❤️", months:[9],    desc:"合掌造りの集落を彩る真っ赤な彼岸花の風景が幻想的。" },
+  { name:"巾着田曼珠沙華公園",  pref:"埼玉県",   flower:"彼岸花",   emoji:"❤️", months:[9],    desc:"約500万本の彼岸花が咲く日本最大級の群生地。" },
+  { name:"向島百花園",          pref:"東京都",   flower:"萩",       emoji:"🌸", months:[9],    desc:"江戸時代から続く下町の花園。秋は萩のトンネルが美しい。" },
+  { name:"笠間芸術の森公園",    pref:"茨城県",   flower:"梅",       emoji:"🌸", months:[2,3],  desc:"約100品種3000本の梅が咲き誇る関東有数の梅の名所。" },
+  { name:"水戸偕楽園",          pref:"茨城県",   flower:"梅",       emoji:"🌸", months:[2,3],  desc:"日本三名園のひとつ。約3000本の梅が咲く日本一の梅の名所。" },
+  { name:"越前海岸",            pref:"福井県",   flower:"水仙",     emoji:"💐", months:[12,1,2],desc:"日本三大水仙群生地のひとつ。約1億球の水仙が海岸を彩ります。" },
+  { name:"爪木崎",              pref:"静岡県",   flower:"水仙",     emoji:"💐", months:[12,1],  desc:"伊豆半島の先端に広がる水仙の群生地。約300万本が咲きます。" },
+];
+
+
+// ============================================================
+// キャッシュ管理
+// ============================================================
+const CACHE_KEY = 'hanakotoba_cache_v1';
+const CACHE_TTL = 30 * 24 * 60 * 60 * 1000; // 30日
+
+function getCache(key) {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const cache = JSON.parse(raw);
+    const item = cache[key];
+    if (!item) return null;
+    if (Date.now() - item.ts > CACHE_TTL) return null;
+    return item.data;
+  } catch { return null; }
+}
+
+function setCache(key, data) {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    const cache = raw ? JSON.parse(raw) : {};
+    cache[key] = { data, ts: Date.now() };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+  } catch {}
+}
+
+// ============================================================
+// Pexels 画像取得
+// ============================================================
+async function fetchFlowerImage(enName) {
+  const cacheKey = `img_${enName}`;
+  const cached = getCache(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const res = await fetch(
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(enName + ' flower')}&per_page=5&orientation=landscape`,
+      { headers: { Authorization: PEXELS_KEY } }
+    );
+    const data = await res.json();
+    if (data.photos && data.photos.length > 0) {
+      const photo = data.photos[0];
+      const result = {
+        url: photo.src.large,
+        photographer: photo.photographer,
+        pexels_url: photo.url,
+      };
+      setCache(cacheKey, result);
+      return result;
+    }
+  } catch {}
+  return null;
+}
+
+// ============================================================
+// OpenRouter AI 花情報取得
+// ============================================================
+async function fetchFlowerInfoAI(flowerName) {
+  const cacheKey = `ai_${flowerName}`;
+  const cached = getCache(cacheKey);
+  if (cached) return cached;
+
+  const prompt = `「${flowerName}」という花について、以下のJSON形式のみで回答してください。前後に説明文は不要です。
+
+{
+  "name": "花の正式な日本語名",
+  "en": "英語名（Pexels画像検索用）",
+  "scientific": "学名",
+  "emoji": "最も近い絵文字1文字",
+  "kotoba_jp": ["日本の花言葉1", "日本の花言葉2", "日本の花言葉3"],
+  "kotoba_en": ["Western meaning 1", "Western meaning 2"],
+  "desc": "花の説明・豆知識（200〜250文字、2〜3文で。花の特徴・歴史・文化的背景などを含める）",
+  "gift_level": "best",
+  "gift_reason": "贈り物レベルの理由（20〜40文字）",
+  "season": "見頃の季節（春・夏・秋・冬）",
+  "origin": "原産地",
+  "color": "代表的な色",
+  "gift_tip": "贈り物のワンポイントアドバイス（30文字程度）"
+}
+
+gift_levelは以下の4段階で判定してください：
+- "best"    : 誕生日・告白・お祝いなど特定シーンで特に喜ばれる花（例：赤いバラ、チューリップ）
+- "ok"      : 一般的に贈り物として問題ない花（例：カーネーション、ガーベラ）
+- "caution" : 毒がある・地域や文化によって縁起が悪いなど注意が必要な花（例：彼岸花、水仙）
+- "ng"      : 「死」「別れ」「嫉妬」など強いネガティブな花言葉を持ち贈り物に不向きな花（例：黄色いバラ、シクラメン）`;
+
+  try {
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENROUTER_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 800,
+        messages: [{ role: 'user', content: prompt }],
+      })
+    });
+    const data = await res.json();
+    const text = data.choices?.[0]?.message?.content || '';
+    const cleaned = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(cleaned);
+    setCache(cacheKey, parsed);
+    return parsed;
+  } catch(e) {
+    console.error('AI fetch error:', e);
+    return null;
+  }
+}
+
+// ============================================================
+// 花カードHTMLを生成
+// ============================================================
+function buildFlowerCard(flower, dateLabel, imageData) {
+  const giftLevel = flower.gift_level || (flower.safe === false ? 'caution' : 'ok');
+  const giftTagMap = {
+    best:    { cls: 'gift-best',    label: '✦ 贈り物に最適' },
+    ok:      { cls: 'gift-ok',      label: '✓ 贈り物OK' },
+    caution: { cls: 'gift-caution', label: '⚠ 贈り物注意' },
+    ng:      { cls: 'gift-ng',      label: '✗ 贈り物NG' },
+  };
+  const gt = giftTagMap[giftLevel] || giftTagMap.ok;
+  const safeTag = `<span class="tag ${gt.cls}">${gt.label}</span>`;
+
+  const kotoba = flower.kotoba || flower.kotoba_jp || [];
+  const kotobaItems = kotoba.map(k => `<li>${k}</li>`).join('');
+
+  const kotobaEnSection = flower.kotoba_en && flower.kotoba_en.length > 0
+    ? `<div class="section-label" style="margin-top:12px">Western Meaning</div>
+       <ul class="kotoba-list">${flower.kotoba_en.map(k=>`<li>${k}</li>`).join('')}</ul>`
+    : '';
+
+  const extraTags = [
+    flower.season ? `<span class="tag">🌿 ${flower.season}</span>` : '',
+    flower.origin ? `<span class="tag">🌍 ${flower.origin}</span>` : '',
+    flower.color  ? `<span class="tag">🎨 ${flower.color}</span>` : '',
+  ].filter(Boolean).join('');
+
+  const imgSection = imageData
+    ? `<img src="${imageData.url}" alt="${flower.name}" loading="lazy" onload="this.style.opacity=1" style="opacity:0;transition:opacity 0.5s">
+       <div class="photo-credit">📷 ${imageData.photographer} on Pexels</div>`
+    : `<div class="img-loading">
+         <div class="flower-big">${flower.emoji}</div>
+       </div>`;
+
+  const giftTip = flower.gift_tip ? `<div style="font-size:11px;color:var(--kusa);margin-top:8px;font-style:italic">💡 ${flower.gift_tip}</div>` : '';
+
+  const cardId = 'card_' + Date.now();
+  return `
+    <div class="flower-card visible" id="${cardId}" data-flower-name="${flower.name}" data-flower-emoji="${flower.emoji}" data-kotoba="${(flower.kotoba||flower.kotoba_jp||[]).join('・')}" data-date="${dateLabel||''}">
+      <div class="card-layout">
+        <div class="card-image">
+          ${imgSection}
+          ${dateLabel ? `<div class="specimen-badge"><div class="specimen-date">${dateLabel}</div></div>` : ''}
+        </div>
+        <div class="card-info">
+          <div class="spec-no">HANAKOTOBA — SPECIMEN</div>
+          <div class="flower-name-en">${flower.en || ''}</div>
+          <div class="flower-name-ja">${flower.name}</div>
+          <div class="flower-name-scientific">${flower.scientific || ''}</div>
+          <div class="rule"></div>
+          <div class="section-label">花 言 葉</div>
+          <ul class="kotoba-list">${kotobaItems}</ul>
+          ${kotobaEnSection}
+          <div class="flower-desc">${flower.desc || ''}</div>
+          <div class="tag-row">
+            ${safeTag}
+            ${extraTags}
+            ${getSeasonalTags(flower.name)}
+          </div>
+          ${flower.gift_reason ? `<div style="font-size:11px;color:${giftLevel==='ng'?'#c0565b':giftLevel==='caution'?'#a06010':'var(--gray)'};margin-bottom:8px">${flower.gift_reason}</div>` : (flower.safe_reason ? `<div style="font-size:11px;color:#c0565b;margin-bottom:8px">⚠ ${flower.safe_reason}</div>` : '')}
+          ${giftTip}
+          <a class="gift-btn" href="https://www.hibiyakadan.com/" target="_blank" rel="noopener">
+            🎁 この花を贈る — 日比谷花壇
+          </a>
+          <button class="spot-link-btn" onclick="goToSpot('${flower.name}')">
+            📍 ${flower.name}の花スポットを見る
+          </button>
+          <div class="share-btns">
+            <button class="share-btn twitter" onclick="shareTwitter('${flower.name}', '${(flower.kotoba||flower.kotoba_jp||[]).join('・')}', '${dateLabel||''}')">
+              𝕏 シェア
+            </button>
+            <button class="share-btn line" onclick="shareLine('${flower.name}', '${(flower.kotoba||flower.kotoba_jp||[]).join('・')}', '${dateLabel||''}')">
+              LINE
+            </button>
+            <button class="share-btn img-dl" onclick="downloadShareImage('${cardId}')">
+              📷 画像保存
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ============================================================
+// 誕生花タブ
+// ============================================================
+function setupDateSelectors() {
+  const ms = document.getElementById('sel-month');
+  const monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  for (let i = 1; i <= 12; i++) {
+    const o = document.createElement('option');
+    o.value = i; o.text = monthNames[i-1];
+    ms.appendChild(o);
+  }
+  ms.addEventListener('change', () => { updateDays(); loadBirthFlower(); });
+  updateDays();
+}
+
+function updateDays() {
+  const month = parseInt(document.getElementById('sel-month').value);
+  const ds = document.getElementById('sel-day');
+  const current = parseInt(ds.value) || 1;
+  const days = new Date(2024, month, 0).getDate();
+  ds.innerHTML = '';
+  for (let i = 1; i <= days; i++) {
+    const o = document.createElement('option');
+    o.value = i; o.text = i + '日';
+    ds.appendChild(o);
+  }
+  ds.value = Math.min(current, days);
+}
+
+function goToday() {
+  const today = new Date();
+  document.getElementById('sel-month').value = today.getMonth() + 1;
+  updateDays();
+  document.getElementById('sel-day').value = today.getDate();
+  loadBirthFlower();
+}
+
+async function loadBirthFlower() {
+  const month = parseInt(document.getElementById('sel-month').value);
+  const day = parseInt(document.getElementById('sel-day').value);
+  const key = `${month}/${day}`;
+  const flower = BIRTH_FLOWERS[key] || MONTH_DEFAULTS[month];
+
+  const resultEl = document.getElementById('birth-result');
+  resultEl.innerHTML = `<div class="loading-state">
+    <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
+    <div class="loading-text">LOADING FLOWER DATA...</div>
+  </div>`;
+
+  // 画像取得
+  const imageData = await fetchFlowerImage(flower.en);
+
+  const dateLabel = `${month}月${day}日の誕生花`;
+  // バナー表示
+  const bannerEl = document.getElementById('seasonal-banner');
+  if (bannerEl) bannerEl.innerHTML = getSeasonalBanner();
+
+  resultEl.innerHTML = buildFlowerCard(flower, dateLabel, imageData);
+
+  // 誕生石・誕生色
+  const stone = BIRTHSTONES[month];
+  const color = BIRTH_COLORS[month];
+  if (stone && color) {
+    document.getElementById('birthstone-name').textContent = stone.name;
+    document.getElementById('birthstone-meaning').textContent = stone.meaning;
+    document.getElementById('birth-color-name').textContent = color.name;
+    document.getElementById('birth-color-meaning').textContent = color.meaning;
+    document.getElementById('birth-color-swatch').style.background = color.hex;
+    document.getElementById('extra-panel').style.display = 'grid';
+  }
+
+  spawnPetals(flower.emoji);
+}
+
+// ============================================================
+// 検索タブ
+// ============================================================
+const SUGGEST_FLOWERS = ['バラ','桜','向日葵','紫陽花','チューリップ','菫','百合','蓮','桔梗','椿','藤','ラベンダー','カーネーション','コスモス'];
+
+function setupSearch() {
+  const tagsEl = document.getElementById('suggest-tags');
+  tagsEl.innerHTML = SUGGEST_FLOWERS.map(f =>
+    `<button class="search-tag" onclick="quickSearch('${f}')">${f}</button>`
+  ).join('');
+}
+
+function quickSearch(name) {
+  document.getElementById('search-input').value = name;
+  doSearch();
+}
+
+async function doSearch() {
+  const query = document.getElementById('search-input').value.trim();
+  if (!query) return;
+
+  const resultEl = document.getElementById('search-result');
+  // バナー表示
+  const bannerEl = document.getElementById('seasonal-banner-search');
+  if (bannerEl) bannerEl.innerHTML = getSeasonalBanner();
+  resultEl.innerHTML = `<div class="loading-state">
+    <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
+    <div class="loading-text">「${query}」を調べています...</div>
+  </div>`;
+
+  // AI で花情報取得
+  const info = await fetchFlowerInfoAI(query);
+  if (!info) {
+    resultEl.innerHTML = `<div class="error-state">情報の取得に失敗しました。もう一度お試しください。</div>`;
+    return;
+  }
+
+  // 画像取得
+  const imageData = await fetchFlowerImage(info.en || query);
+
+  resultEl.innerHTML = buildFlowerCard(info, null, imageData);
+  spawnPetals(info.emoji || '🌸');
+}
+
+// ============================================================
+// 花スポットタブ
+// ============================================================
+const ALL_PREFS = [
+  '北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県',
+  '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県',
+  '新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県',
+  '静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県',
+  '奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県',
+  '徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県',
+  '熊本県','大分県','宮崎県','鹿児島県','沖縄県'
+];
+
+let currentSpotMonth = new Date().getMonth() + 1;
+let currentSpotFlower = '';
+
+function setupSpots() {
+  // 月セレクト
+  const chipsEl = document.getElementById('season-chips');
+  chipsEl.innerHTML = Array.from({length:12}, (_,i) => {
+    const m = i + 1;
+    return `<button class="season-chip ${m === currentSpotMonth ? 'active' : ''}"
+      onclick="setSpotMonth(${m}, this)">${m}月</button>`;
+  }).join('');
+
+  // 都道府県（47都道府県・北海道→沖縄順）
+  const prefSel = document.getElementById('pref-select');
+  prefSel.innerHTML = '<option value="">全国</option>';
+  ALL_PREFS.forEach(p => {
+    const o = document.createElement('option');
+    o.value = p; o.text = p;
+    prefSel.appendChild(o);
+  });
+
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function setSpotMonthById(m) {
+  currentSpotMonth = m;
+  document.querySelectorAll('.season-chip').forEach((c, i) => {
+    c.classList.toggle('active', i + 1 === m);
+  });
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function clearPrefAndSearch() {
+  document.getElementById('pref-select').value = '';
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function setSpotMonth(m, btn) {
+  currentSpotMonth = m;
+  document.querySelectorAll('.season-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function updateSpotSubtitle() {
+  const d = new Date().getDate();
+  const flowerLabel = currentSpotFlower ? ` — 「${currentSpotFlower}」で絞り込み中` : '';
+  document.getElementById('spot-subtitle').textContent =
+    `${currentSpotMonth}月の見頃スポット${flowerLabel}`;
+}
+
+function onSpotFlowerInput(val) {
+  currentSpotFlower = val.trim();
+  document.getElementById('spot-clear-btn').style.display = currentSpotFlower ? 'block' : 'none';
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function clearSpotFlower() {
+  currentSpotFlower = '';
+  document.getElementById('spot-flower-input').value = '';
+  document.getElementById('spot-clear-btn').style.display = 'none';
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function goToSpot(flowerName) {
+  currentSpotFlower = flowerName;
+
+  // 花の見頃月を自動検出してジャンプ
+  const kw = flowerName.replace(/（.*?）/g, '');
+  const matched = FLOWER_SPOTS.filter(s => s.flower.includes(kw) || kw.includes(s.flower));
+  if (matched.length > 0) {
+    // 見頃月の中で現在月に最も近い月を選ぶ
+    const allMonths = matched.flatMap(s => s.months);
+    const today = new Date().getMonth() + 1;
+    const closest = allMonths.reduce((a, b) =>
+      Math.abs(b - today) < Math.abs(a - today) ? b : a
+    );
+    currentSpotMonth = closest;
+  }
+
+  // タブ切替
+  document.querySelectorAll('.header-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.header-btn')[2].classList.add('active');
+  ['birth','search','spot'].forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = t === 'spot' ? 'block' : 'none';
+  });
+
+  // 検索窓に反映
+  document.getElementById('spot-flower-input').value = flowerName;
+  document.getElementById('spot-clear-btn').style.display = 'block';
+
+  // 月チップ更新
+  document.querySelectorAll('.season-chip').forEach((c, i) => {
+    c.classList.toggle('active', i + 1 === currentSpotMonth);
+  });
+
+  updateSpotSubtitle();
+  renderSpots();
+}
+
+function renderSpots() {
+  const pref = document.getElementById('pref-select').value;
+  const flowerKw = currentSpotFlower.replace(/（.*?）/g, '').trim();
+
+  let spots = FLOWER_SPOTS.filter(s => s.months.includes(currentSpotMonth));
+  if (pref) spots = spots.filter(s => s.pref === pref);
+  if (flowerKw) spots = spots.filter(s =>
+    s.flower.includes(flowerKw) || flowerKw.includes(s.flower)
+  );
+
+  const grid = document.getElementById('spot-grid');
+  if (spots.length === 0) {
+    const monthLabel = currentSpotMonth + '月';
+    const flowerLabel = flowerKw ? `「${flowerKw}」の` : '';
+    const prefLabel = pref ? `${pref}の` : '';
+
+    // サジェスト：同じ花で他の月を探す
+    let suggestions = [];
+    if (flowerKw) {
+      const otherMonths = [...new Set(
+        FLOWER_SPOTS
+          .filter(s => s.flower.includes(flowerKw) || flowerKw.includes(s.flower))
+          .flatMap(s => s.months)
+          .filter(m => m !== currentSpotMonth)
+      )].sort((a,b) => a - b);
+
+      otherMonths.forEach(m => {
+        suggestions.push({
+          label: `🗓 ${m}月に${flowerLabel}スポットを見る`,
+          action: `setSpotMonthById(${m})`
+        });
+      });
+    }
+
+    // サジェスト：都道府県絞りを外す
+    if (pref) {
+      const nationwide = FLOWER_SPOTS.filter(s =>
+        s.months.includes(currentSpotMonth) &&
+        (!flowerKw || s.flower.includes(flowerKw) || flowerKw.includes(s.flower))
+      );
+      if (nationwide.length > 0) {
+        suggestions.push({
+          label: `🗾 全国で${monthLabel}の${flowerLabel}スポットを見る`,
+          action: `clearPrefAndSearch()`
+        });
+      }
+    }
+
+    const suggestHTML = suggestions.length > 0 ? `
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+        ${suggestions.map(s => `
+          <button onclick="${s.action}"
+            style="padding:8px 16px;border:1px solid var(--koke);border-radius:20px;background:var(--shiro);color:var(--koke);font-size:12px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all 0.2s"
+            onmouseover="this.style.background='var(--light-koke)'"
+            onmouseout="this.style.background='var(--shiro)'">
+            ${s.label}
+          </button>
+        `).join('')}
+      </div>` : '';
+
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--gray);font-size:13px;line-height:2">
+      ${prefLabel}${monthLabel}の${flowerLabel}スポットはまだ登録されていません。<br>
+      <span style="font-size:12px">月を変えるか、花の名前を変更してみてください。</span>
+      ${suggestHTML}
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = spots.map(s => `
+    <div class="spot-card">
+      <div class="spot-flower">${s.emoji}</div>
+      <div class="spot-name">${s.name}</div>
+      <div class="spot-pref">${s.pref}</div>
+      <div class="spot-season">${s.flower} · ${s.months.map(m => m + '月').join('・')}</div>
+      <div class="spot-desc">${s.desc}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// タブ切替
+// ============================================================
+function switchTab(tab, btn) {
+  document.querySelectorAll('.header-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['birth','search','spot'].forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+// ============================================================
+// 花びらエフェクト
+// ============================================================
+function spawnPetals(emoji) {
+  const container = document.getElementById('petals');
+  container.innerHTML = '';
+  for (let i = 0; i < 14; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = emoji;
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.fontSize = (10 + Math.random() * 14) + 'px';
+      p.style.setProperty('--drift', (Math.random() * 100 - 50) + 'px');
+      p.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      p.style.animationDelay = (Math.random() * 0.6) + 's';
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 6000);
+    }, i * 70);
+  }
+}
+
+// ============================================================
+// 初期化
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  setupDateSelectors();
+  setupSearch();
+  setupSpots();
+
+  const today = new Date();
+  document.getElementById('sel-month').value = today.getMonth() + 1;
+  updateDays();
+  document.getElementById('sel-day').value = today.getDate();
+
+  document.getElementById('sel-day').addEventListener('change', loadBirthFlower);
+
+  loadBirthFlower();
+
+  // PWA Service Worker 登録
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+});
+
+// ============================================================
+// SNS シェア
+// ============================================================
+function shareTwitter(name, kotoba, dateLabel) {
+  const text = dateLabel
+    ? `${dateLabel}の誕生花は「${name}」🌸\n花言葉：${kotoba}\n\n#花ことば #誕生花 #花言葉`
+    : `「${name}」の花言葉は「${kotoba}」🌸\n\n#花ことば #花言葉`;
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+}
+
+function shareLine(name, kotoba, dateLabel) {
+  const text = dateLabel
+    ? `${dateLabel}の誕生花は「${name}」🌸 花言葉：${kotoba}`
+    : `「${name}」の花言葉は「${kotoba}」🌸`;
+  const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}&text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+}
+
+// ============================================================
+// Canvas でシェア画像生成・DL
+// ============================================================
+async function downloadShareImage(cardId) {
+  const card = document.getElementById(cardId);
+  if (!card) return;
+
+  const name    = card.dataset.flowerName  || '';
+  const emoji   = card.dataset.flowerEmoji || '🌸';
+  const kotoba  = card.dataset.kotoba      || '';
+  const date    = card.dataset.date        || '';
+  const kotobaList = kotoba.split('・').filter(Boolean);
+
+  // Instagramストーリーサイズ 1080×1920
+  const W = 1080, H = 1920;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  // 背景グラデーション
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0,   '#F5F0E8');
+  grad.addColorStop(0.5, '#EDE8DE');
+  grad.addColorStop(1,   '#E0D8CC');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // 装飾ライン（上）
+  ctx.strokeStyle = '#4D6B4F';
+  ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(80, 120); ctx.lineTo(W-80, 120); ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80, 128); ctx.lineTo(W-80, 128); ctx.stroke();
+
+  // アプリ名
+  ctx.fillStyle = '#888880';
+  ctx.font = '32px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('花 こ と ば', W/2, 90);
+
+  // 日付ラベル
+  if (date) {
+    ctx.fillStyle = '#4D6B4F';
+    ctx.font = '40px sans-serif';
+    ctx.fillText(date, W/2, 220);
+  }
+
+  // 絵文字（大）
+  ctx.font = '260px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(emoji, W/2, 620);
+
+  // 花名
+  ctx.fillStyle = '#1C1C1A';
+  ctx.font = `bold 140px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText(name, W/2, 810);
+
+  // 区切りライン
+  ctx.strokeStyle = '#B8986A';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(240, 870); ctx.lineTo(W-240, 870); ctx.stroke();
+
+  // 「花言葉」ラベル
+  ctx.fillStyle = '#B8986A';
+  ctx.font = '38px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('花  言  葉', W/2, 950);
+
+  // 花言葉リスト
+  ctx.fillStyle = '#2A2A2A';
+  ctx.font = '64px sans-serif';
+  ctx.textAlign = 'center';
+  const lineH = 110;
+  kotobaList.slice(0, 3).forEach((k, i) => {
+    ctx.fillText(k, W/2, 1070 + i * lineH);
+  });
+
+  // 装飾ライン（下）
+  const bottomY = H - 160;
+  ctx.strokeStyle = '#4D6B4F';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80, bottomY); ctx.lineTo(W-80, bottomY); ctx.stroke();
+  ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(80, bottomY+8); ctx.lineTo(W-80, bottomY+8); ctx.stroke();
+
+  // フッター
+  ctx.fillStyle = '#888880';
+  ctx.font = '34px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('hanakotoba.app', W/2, H - 80);
+
+  // DL
+  const a = document.createElement('a');
+  a.download = `hanakotoba_${name}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+</body>
+</html>
