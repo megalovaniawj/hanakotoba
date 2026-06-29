@@ -16,10 +16,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Replace API keys
+      - name: Generate config.js with API keys
+        env:
+          OPENROUTER_KEY: ${{ secrets.OPENROUTER_KEY }}
+          PEXELS_KEY: ${{ secrets.PEXELS_KEY }}
         run: |
-          sed -i "s|__OPENROUTER_KEY__|${{ secrets.OPENROUTER_KEY }}|g" hanakotoba-v2.html
-          sed -i "s|__PEXELS_KEY__|${{ secrets.PEXELS_KEY }}|g" hanakotoba-v2.html
+          echo "const OPENROUTER_KEY = '${OPENROUTER_KEY}';" > config.js
+          echo "const PEXELS_KEY = '${PEXELS_KEY}';" >> config.js
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
