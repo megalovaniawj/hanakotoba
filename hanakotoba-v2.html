@@ -188,8 +188,8 @@ header {
 
 .card-layout {
   display: grid;
-  grid-template-columns: 380px 1fr;
-  min-height: 440px;
+  grid-template-columns: 340px 1fr;
+  min-height: 340px;
 }
 
 /* 画像エリア */
@@ -197,10 +197,13 @@ header {
   position: relative;
   overflow: hidden;
   background: var(--light-koke);
+  aspect-ratio: 1 / 1;
+  max-height: 340px;
 }
 .card-image img {
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: center 30%;
   display: block;
   transition: opacity 0.5s ease;
 }
@@ -1025,8 +1028,8 @@ function setCache(key, data) {
 // ============================================================
 // Pexels 画像取得
 // ============================================================
-async function fetchFlowerImage(enName) {
-  const cacheKey = `img_${enName}`;
+async function fetchFlowerImage(enName, cacheKeyOverride) {
+  const cacheKey = cacheKeyOverride || `img_${enName}`;
   const cached = getCache(cacheKey);
   if (cached) return cached;
 
@@ -1048,6 +1051,52 @@ async function fetchFlowerImage(enName) {
     }
   } catch {}
   return null;
+}
+
+// ============================================================
+// 花スポット AI取得
+// ============================================================
+async function fetchFlowerSpotsAI(flowerName) {
+  const cacheKey = `spots_${flowerName}`;
+  const cached = getCache(cacheKey);
+  if (cached) return cached;
+
+  const prompt = `「${flowerName}」の日本国内の有名な花の名所・群生地を5件教えてください。以下のJSON配列形式のみで回答してください。
+
+[
+  {
+    "name": "スポット名",
+    "pref": "都道府県名（例：東京都）",
+    "flower": "${flowerName}",
+    "emoji": "花の絵文字",
+    "months": [見頃の月の数字の配列（例：[4,5]）],
+    "desc": "スポットの説明（50文字程度）"
+  }
+]`;
+
+  try {
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENROUTER_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 800,
+        messages: [{ role: 'user', content: prompt }],
+      })
+    });
+    const data = await res.json();
+    const text = data.choices?.[0]?.message?.content || '';
+    const cleaned = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(cleaned);
+    setCache(cacheKey, parsed);
+    return parsed;
+  } catch(e) {
+    console.error('Spot AI fetch error:', e);
+    return null;
+  }
 }
 
 // ============================================================
@@ -1240,17 +1289,15 @@ async function loadBirthFlower() {
     <div class="loading-text">LOADING FLOWER DATA...</div>
   </div>`;
 
-  // 画像取得
-  const imageData = await fetchFlowerImage(flower.en);
+  // 日付ごとに異なるキャッシュキーで画像取得
+  const imageData = await fetchFlowerImage(flower.en, `birth_${month}_${day}`);
 
   const dateLabel = `${month}月${day}日の誕生花`;
-  // バナー表示
   const bannerEl = document.getElementById('seasonal-banner');
   if (bannerEl) bannerEl.innerHTML = getSeasonalBanner();
 
   resultEl.innerHTML = buildFlowerCard(flower, dateLabel, imageData);
 
-  // 誕生石・誕生色
   const stone = BIRTHSTONES[month];
   const color = BIRTH_COLORS[month];
   if (stone && color) {
@@ -1493,6 +1540,28 @@ function renderSpots() {
       <span style="font-size:12px">月を変えるか、花の名前を変更してみてください。</span>
       ${suggestHTML}
     </div>`;
+
+    // 花名で絞り込み中の場合、AIでスポット取得を試みる
+    if (flowerKw) {
+      grid.innerHTML += `<div id="ai-spot-loading" style="grid-column:1/-1;text-align:center;padding:20px;color:var(--gray);font-size:12px">
+        🌸 AIで${flowerKw}のスポットを検索中...
+      </div>`;
+      fetchFlowerSpotsAI(flowerKw).then(aiSpots => {
+        const loadingEl = document.getElementById('ai-spot-loading');
+        if (!aiSpots || aiSpots.length === 0) {
+          if (loadingEl) loadingEl.remove();
+          return;
+        }
+        // 取得したスポットをFLOWER_SPOTSに追加
+        aiSpots.forEach(s => {
+          if (!FLOWER_SPOTS.find(existing => existing.name === s.name)) {
+            FLOWER_SPOTS.push(s);
+          }
+        });
+        if (loadingEl) loadingEl.remove();
+        renderSpots();
+      });
+    }
     return;
   }
 
