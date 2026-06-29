@@ -12,6 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="花ことば">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<script src="config.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
@@ -797,9 +798,6 @@ header {
 <script>
 // ============================================================
 // 母の日・父の日 判定
-// ============================================================
-
-// 母の日おすすめ花（カーネーション系・ピンク・感謝系）
 const MOTHERS_DAY_FLOWERS = ['カーネーション','薔薇','バラ','ガーベラ','スイートピー','ラナンキュラス','ピオニー','芍薬','桃の花','白バラ'];
 // 父の日おすすめ花（向日葵・黄色系・男性的な花）
 const FATHERS_DAY_FLOWERS = ['向日葵','ひまわり','ヒマワリ','ゴールデンロッド','菊','ガーベラ','ユリ','百合','ハス','蓮'];
@@ -874,8 +872,7 @@ function getSeasonalBanner() {
   }
   return '';
 }
-const OPENROUTER_KEY = '__OPENROUTER_KEY__';
-const PEXELS_KEY = '__PEXELS_KEY__';
+// APIキーはconfig.jsから読み込み（GitHub Actionsが生成）
 const MODEL = 'anthropic/claude-haiku-4-5';
 
 // ============================================================
