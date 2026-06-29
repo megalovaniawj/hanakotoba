@@ -1,4 +1,2 @@
-// このファイルはGitHub Actionsが自動生成します
-// リポジトリには直接コミットしないでください
-const OPENROUTER_KEY = '__OPENROUTER_KEY__';
-const PEXELS_KEY = '__PEXELS_KEY__';
+const OPENROUTER_KEY = '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';
+const PEXELS_KEY = 'JBHR9B0sldZAVHz5L9HUhgHy6ajES2fcGuV9cjLFTMy6ije6oB6FKhnW';
