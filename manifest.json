@@ -1,27 +1,75 @@
 {
+  "id": "/hanakotoba/hanakotoba-v2.html",
   "name": "花ことば — 誕生花・花言葉辞典",
   "short_name": "花ことば",
   "description": "生まれた日の花、贈りたい花の言葉を調べる",
   "start_url": "./hanakotoba-v2.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#F5F0E8",
   "theme_color": "#1C1C1A",
   "orientation": "portrait",
   "lang": "ja",
+  "dir": "ltr",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["lifestyle", "education"],
-  "screenshots": []
+  "shortcuts": [
+    {
+      "name": "今日の誕生花",
+      "short_name": "今日の花",
+      "description": "今日の誕生花をすぐに見る",
+      "url": "./hanakotoba-v2.html?tab=birth",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "花を調べる",
+      "short_name": "花を調べる",
+      "description": "花の名前から花言葉を調べる",
+      "url": "./hanakotoba-v2.html?tab=search",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "735x1604",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "誕生花を調べる画面"
+    },
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "3721x1680",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "花ことば デスクトップ表示"
+    }
+  ],
+  "prefer_related_applications": false
 }

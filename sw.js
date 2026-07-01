@@ -1,7 +1,9 @@
-const CACHE_NAME = 'hanakotoba-v1';
+const CACHE_NAME = 'hanakotoba-v2';
 const STATIC_ASSETS = [
   './hanakotoba-v2.html',
   './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
 ];
 
 // インストール時：静的アセットをキャッシュ
