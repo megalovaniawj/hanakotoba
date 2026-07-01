@@ -187,22 +187,48 @@ header {
 .flower-card.visible { opacity: 1; transform: translateY(0); }
 
 .card-layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "image" "header" "bottom";
+  align-items: start;
 }
-
-/* 画像エリア */
+.card-layout .card-image  { grid-area: image; }
+.card-layout .card-header { grid-area: header; }
+.card-layout .card-bottom { grid-area: bottom; }
+@media (min-width: 701px) {
+  .card-layout {
+    grid-template-columns: minmax(280px, 420px) 1fr;
+    grid-template-areas:
+      "image  header"
+      "bottom bottom";
+    gap: 0;
+  }
+}
+/* 画像エリア：正方形固定 + 中央寄せ + ぼかし背景 */
 .card-image {
   position: relative;
   overflow: hidden;
   background: var(--light-koke);
   width: 100%;
-  height: 320px;
+  max-width: 480px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
 }
-.card-image img {
+@media (min-width: 701px) {
+  .card-image { max-width: 100%; margin: 0; }
+}
+.card-image-bg {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  filter: blur(24px) brightness(0.75) saturate(1.1);
+  transform: scale(1.2);
+  display: block;
+}
+.card-image-main {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
   display: block;
   transition: opacity 0.5s ease;
 }
@@ -250,12 +276,23 @@ header {
 }
 
 /* 情報エリア */
-.card-info {
+.card-header {
   padding: 32px 40px;
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--border);
   position: relative;
+}
+.card-bottom {
+  padding: 24px 40px 32px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+@media (min-width: 701px) {
+  .card-header { border-top: none; border-left: 1px solid var(--border); }
+  .card-bottom { border-top: 1px solid var(--border); }
 }
 .spec-no {
   font-family: 'Noto Sans JP', sans-serif;
@@ -691,8 +728,9 @@ header {
 .season-banner-icon { font-size: 28px; flex-shrink: 0; }
 .season-banner strong { display: block; font-size: 14px; margin-bottom: 2px; }
 @media (max-width: 700px) {
-  .card-image { height: 220px; }
-  .card-info { padding: 24px 20px; }
+  .card-image { max-width: 100%; }
+  .card-header { padding: 24px 20px; }
+  .card-bottom { padding: 16px 20px 24px; }
   .flower-name-ja { font-size: 28px; }
   .extra-panel { grid-template-columns: 1fr 1fr; }
   header { padding: 0 16px; }
@@ -1521,7 +1559,8 @@ function buildFlowerCard(flower, dateLabel, imageData) {
   ].filter(Boolean).join('');
 
   const imgSection = imageData
-    ? `<img src="${imageData.url}" alt="${flower.name}" loading="lazy" onload="this.style.opacity=1" style="opacity:0;transition:opacity 0.5s">
+    ? `<img class="card-image-bg" src="${imageData.url}" alt="" aria-hidden="true" loading="lazy">
+       <img class="card-image-main" src="${imageData.url}" alt="${flower.name}" loading="lazy" onload="this.style.opacity=1" style="opacity:0;transition:opacity 0.5s">
        <div class="photo-credit">📷 ${imageData.photographer} on Pexels</div>`
     : `<div class="img-loading">
          <div class="flower-big">${flower.emoji}</div>
@@ -1537,7 +1576,7 @@ function buildFlowerCard(flower, dateLabel, imageData) {
           ${imgSection}
           ${dateLabel ? `<div class="specimen-badge"><div class="specimen-date">${dateLabel}</div></div>` : ''}
         </div>
-        <div class="card-info">
+        <div class="card-header">
           <div class="spec-no">HANAKOTOBA — SPECIMEN</div>
           <div class="flower-name-en">${flower.en || ''}</div>
           <div class="flower-name-ja">${flower.name}</div>
@@ -1546,6 +1585,8 @@ function buildFlowerCard(flower, dateLabel, imageData) {
           <div class="section-label">花 言 葉</div>
           <ul class="kotoba-list">${kotobaItems}</ul>
           ${kotobaEnSection}
+        </div>
+        <div class="card-bottom">
           <div class="flower-desc">${flower.desc || ''}</div>
           <div class="tag-row">
             ${safeTag}
