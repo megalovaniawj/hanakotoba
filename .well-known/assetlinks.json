@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.megalovaniawj.twa",
+        "sha256_cert_fingerprints": ["64:81:38:55:FE:E3:A6:D5:CE:BC:52:43:B4:0D:F7:E3:AB:D8:B7:A6:83:45:C3:72:E2:E4:5A:AA:3C:CF:77:1B"]
+      }
+    }]
