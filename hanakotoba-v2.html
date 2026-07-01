@@ -2020,6 +2020,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
   loadBirthFlower();
 
+  // ショートカット起動時のタブ指定に対応（例: ?tab=search）
+  const params = new URLSearchParams(location.search);
+  const initialTab = params.get('tab');
+  if (initialTab && ['birth','search','spot'].includes(initialTab)) {
+    const idx = { birth: 0, search: 1, spot: 2 }[initialTab];
+    const btn = document.querySelectorAll('.header-btn')[idx];
+    if (btn) switchTab(initialTab, btn);
+  }
+
   // PWA Service Worker 登録
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
